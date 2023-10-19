@@ -1,16 +1,10 @@
 #include <iostream>
 #include <vector>
-#include<algorithm>
+#include <algorithm>
+#include <cmath >
 using namespace std;
 
 vector<double> task() {
-    vector<double> ret;
-    
-    return ret;
-}
-
-int main()
-{
     vector<int> v;
     for (int i = 1; i <= 6; i++) {
         for (int j = 1; j <= 6; j++) {
@@ -46,7 +40,7 @@ int main()
     }
 
     vector<int> index(v[v.size() - 1] + 1, 0);
-    int t = 0;
+    double t = 0;
     for (int i = 0; i < v.size(); i++) {
         index[v[i]] = t;
         t++;
@@ -76,9 +70,38 @@ int main()
         }
     }
 
+    double HA = 0, HB = 0, HAB = 0, HaB = 0, I = 0;
+    vector<double> p;
 
+    for (int i = 0; i < m.size(); i++) {
+        t = 0;
+        for (int j = 0; j < m[i].size(); j++) {
+            t += m[i][j];
+        }
+        p.push_back(t);
+        HA -= log2(t) * t;
+    }
 
-    //for (int i = 0; i < indexv.size(); i++) cout << indexv[i] << " ";
-    for (int i = 0; i < m.size(); i++) {for (int j = 0; j < m[i].size(); j++) cout << m[i][j] << " "; cout << "\n";}
+    for (int j = 0; j < m[0].size(); j++) {
+        t = 0;
+        for (int i = 0; i < m.size(); i++) {
+            t += m[i][j];
+        }
+        HB -= log2(t) * t;
+    }
 
+    for (int i = 0; i < m.size(); i++) {
+        for (int j = 0; j < m[i].size(); j++) {
+            if (m[i][j]) HaB -= log2(m[i][j] / p[i]) * m[i][j];
+        }
+    }
+
+    HAB = HA + HaB;
+    I = HB - HaB;
+    vector<double> ret{ HAB,HA,HB,HaB,I };
+    return ret;
+}
+
+int main(){
+    
 }
