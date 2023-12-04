@@ -1,3 +1,3 @@
 import pandas as pd
-print(pd.read_csv("example.csv", header=None).iloc[1].iloc[2])
-#сверху подставить название файла, и координаты для получения значения
+def task(a,b,c):
+  return pd.read_csv(a, header=None).iloc[b].iloc[c]
